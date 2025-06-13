@@ -1,4 +1,4 @@
-# hipython_rep: 파이썬 기본 학습 및 실습 저장소
+# 📋 hipython_rep: 파이썬 기본 학습 및 실습 저장소
 
 Python 기초 문법부터 고급 개념, 실제 프로젝트 구현까지 단계별로 정리된 학습 자료 모음
 
@@ -44,7 +44,7 @@ Python 기초 문법부터 고급 개념, 실제 프로젝트 구현까지 단�
 ### 3. 📊 데이터 분석 및 라이브러리
 
 - **11_데이터분석함수.ipynb**  
-  내장 함수, `map()`, `filter()`, `collections.defaultdict` 등 실전 활용
+  내장 함수, `map()`, `filter()`, `collections.defaultdict` 등 활용
 
 - **12_넘파이.ipynb**  
   NumPy 라이브러리를 활용한 벡터 연산, 배열 조작
