@@ -5,7 +5,7 @@ from PIL import Image
 import folium
 from streamlit_folium import st_folium
 
-st.set_page_config(page_title="츄러스미", layout="wide") # 페이지 와이드 모드
+# st.set_page_config(page_title="츄러스미", layout="wide") # 페이지 와이드 모드
 
 st.title("츄러스미🍧")
 img = Image.open('./streamlit/image/profile.png')
@@ -42,9 +42,10 @@ if selected_menu == '메인':
         fig2.update_layout(
             xaxis_title="요일",
             yaxis_title="사용량",
-            height=400
+            width=400,
+            height=300
         )
-        st.plotly_chart(fig2)
+        st.plotly_chart(fig2, use_container_width=False)
     
     with col2:
         st.subheader("🗺️ 병원 위치")
@@ -83,14 +84,14 @@ if selected_menu == '메인':
         fig.update_layout(
             polar=dict(radialaxis=dict(visible=True, range=[0,1])),
             showlegend=False,
-            height=400
+            height=300
         )
         st.plotly_chart(fig)
         
     with col4:
         st.subheader("🎵 음악 추천")
         img = Image.open('./streamlit/image/music.png')
-        st.image(img, width=400)
+        st.image(img, width=300)
         st.markdown("<h5 style='text-align: center;'>가수 - 노래제목</h5>", unsafe_allow_html=True)
 
 ###### 채팅 창
@@ -138,7 +139,7 @@ if selected_menu == '병원':
             icon=folium.Icon(color="blue", icon="info-sign")
         ).add_to(m)
     
-    st_data = st_folium(m, width=1500, height=800)
+    st_data = st_folium(m, width=1000, height=800)
     
     st.markdown("### 🏥 병원 정보 리스트")
     df = pd.read_csv('./streamlit/hospital_location.csv')
