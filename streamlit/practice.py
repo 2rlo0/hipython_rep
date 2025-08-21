@@ -7,13 +7,29 @@ from streamlit_folium import st_folium
 
 st.title("츄러스미🍧")
 img = Image.open('./streamlit/image/profile.png')
-st.sidebar.image(img, use_container_width=True)
 
-st.sidebar.header('가나디')
-selected_menu = st.sidebar.selectbox(
-    '메뉴선택', ['대시보드','채팅', '병원', '음악']
-)
+tab_menu, tab_settings = st.sidebar.tabs(["메뉴", "⚙️ 설정"])
 
+with tab_menu:
+    st.image(img, use_container_width=True)
+    st.header('가나디')
+    selected_menu = st.selectbox('메뉴선택', ['대시보드','채팅', '병원', '음악'])
+
+with tab_settings:
+    st.subheader("설정")
+    with st.form("settings_form", border=True):
+        theme = st.selectbox("테마", ["Auto", "Light", "Dark"], index=0)
+        lang = st.selectbox("언어", ["한국어", "English"], index=0)
+        notif = st.toggle("알림 받기", value=True)
+        submitted = st.form_submit_button("저장")
+        if submitted:
+            st.session_state["theme"] = theme
+            st.session_state["lang"] = lang
+            st.session_state["notif"] = notif
+            st.success("설정이 저장되었습니다.")
+
+
+# 대시보드 창
 if selected_menu == '대시보드':
     col1, col2 = st.columns(2)
     with col1:
@@ -31,7 +47,6 @@ if selected_menu == '대시보드':
         st.subheader("🗺️ 병원 위치")
         m = folium.Map(location=[37.5667, 127.0012], zoom_start=12)
 
-        # 2) 여러 개 마커 찍기
         locations = [
             {"name": "서울역", "lat": 37.5547, "lon": 126.9707},
             {"name": "시청", "lat": 37.5663, "lon": 126.9779},
@@ -46,7 +61,6 @@ if selected_menu == '대시보드':
                 icon=folium.Icon(color="blue", icon="info-sign")
             ).add_to(m)
 
-        # 3) Streamlit에 표시
         st_data = st_folium(m, width=700, height=500)
 
     col3, col4 = st.columns(2)
@@ -75,4 +89,71 @@ if selected_menu == '대시보드':
         img = Image.open('./streamlit/image/music.png')
         st.image(img, use_container_width=True, width=500)
         st.markdown("<h5 style='text-align: center;'>가수 - 노래제목</h5>", unsafe_allow_html=True)
+
+# 채팅 창
+if selected_menu == '채팅':
+    st.header("💬 심리 상담")
+
+    if "messages" not in st.session_state:
+        st.session_state["messages"] = []
+
+    # 대화 출력
+    for sender, msg in st.session_state["messages"]:
+        role = "user" if sender == "나" else "assistant"
+        with st.chat_message(role):
+            st.markdown(f"**{sender}**<br>{msg}", unsafe_allow_html=True)
+
+    # 입력창
+    if prompt := st.chat_input("메시지를 입력하세요:"):
+        st.session_state["messages"].append(("나", prompt))
+        with st.chat_message("user"):
+            st.markdown(f"**나**<br>{prompt}", unsafe_allow_html=True)
+
+        # 상담사
+        response = f"'{prompt}' 라는 말씀 잘 들었습니다."
+        st.session_state["messages"].append(("상담사", response))
+        with st.chat_message("assistant"):
+            st.markdown(f"**상담사**<br>{response}", unsafe_allow_html=True)
+
         
+        
+if selected_menu == '병원':        
+    st.subheader("🗺️ 병원 위치")
+    m = folium.Map(location=[37.5667, 127.0012], zoom_start=12)
+
+    locations = [
+        {"name": "서울역", "lat": 37.5547, "lon": 126.9707},
+        {"name": "시청", "lat": 37.5663, "lon": 126.9779},
+        {"name": "강남역", "lat": 37.4979, "lon": 127.0276},
+    ]
+
+    for loc in locations:
+        folium.Marker(
+            [loc["lat"], loc["lon"]],
+            popup=loc["name"],
+            tooltip=loc["name"],
+            icon=folium.Icon(color="blue", icon="info-sign")
+        ).add_to(m)
+    
+    st_data = st_folium(m, width=700, height=500)
+
+if selected_menu == '음악': 
+    st.subheader("🎵 음악 추천")
+
+    # 추천 음악 목록 (이미지 경로 + 제목)
+    music_list = [
+        {"img": "./streamlit/image/babyshark.png", "title": "상어 - 아기상어"},
+        {"img": "./streamlit/image/music.png", "title": "노래2 - 제목2"},
+        {"img": "./streamlit/image/profile.png", "title": "노래3 - 제목3"},
+    ]
+
+    # 여러 곡 출력
+    st.markdown("---")
+    for music in music_list:
+        img = Image.open(music["img"])
+        st.image(img, width=200)
+        st.markdown(
+            f"<h5 style='text-align: center;'>{music['title']}</h5>",
+            unsafe_allow_html=True
+        )
+        st.markdown("---")
