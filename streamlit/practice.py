@@ -11,7 +11,7 @@ st.sidebar.image(img, use_container_width=True)
 
 st.sidebar.header('가나디')
 selected_menu = st.sidebar.selectbox(
-    '메뉴선택', ['채팅', '병원', '음악', '대시보드']
+    '메뉴선택', ['대시보드','채팅', '병원', '음악']
 )
 
 if selected_menu == '대시보드':
