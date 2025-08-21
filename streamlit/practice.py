@@ -17,7 +17,7 @@ tab_menu, tab_settings = st.sidebar.tabs(["메뉴", "⚙️ 설정"])
 with tab_menu:
     st.image(img, use_container_width=True)
     st.header('가나디')
-    selected_menu = st.selectbox('메뉴선택', ['대시보드','채팅', '병원', '음악'])
+    selected_menu = st.selectbox('메뉴선택', ['메인','채팅', '병원', '음악'])
 
 with tab_settings:
     st.subheader("설정")
@@ -34,7 +34,7 @@ with tab_settings:
 
 
 ##### 대시보드 창
-if selected_menu == '대시보드':
+if selected_menu == '메인':
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("📊 일일 사용량")
