@@ -6,7 +6,7 @@ import folium
 from streamlit_folium import st_folium
 
 st.title("츄러스미🍧")
-img = Image.open('./image/profile.png')
+img = Image.open('./steamlit/image/profile.png')
 st.sidebar.image(img, use_container_width=True)
 
 st.sidebar.header('가나디')
@@ -72,7 +72,7 @@ if selected_menu == '대시보드':
     
     with col4:
         st.subheader("🎵 음악 추천")
-        img = Image.open('./image/music.png')
+        img = Image.open('./steamlit/image/music.png')
         st.image(img, use_container_width=True, width=500)
         st.markdown("<h5 style='text-align: center;'>가수 - 노래제목</h5>", unsafe_allow_html=True)
         
