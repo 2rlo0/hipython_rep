@@ -4,8 +4,6 @@ import pandas as pd
 from PIL import Image
 import folium
 from streamlit_folium import st_folium
-from geopy.geocoders import Nominatim
-from geopy.distance import geodesic
 
 st.set_page_config(page_title="츄러스미", layout="wide") # 페이지 와이드 모드
 
