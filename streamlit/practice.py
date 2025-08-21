@@ -138,9 +138,12 @@ if selected_menu == '병원':
             icon=folium.Icon(color="blue", icon="info-sign")
         ).add_to(m)
     
-    st_data = st_folium(m, width=700, height=500)
-    csv_path = "./streamlit/hospital_location.csv"
-    df = pd.read_csv(csv_path)
+    st_data = st_folium(m, width=1500, height=800)
+    
+    st.markdown("### 🏥 병원 정보 리스트")
+    df = pd.read_csv('./streamlit/hospital_location.csv')
+    df_hospital = pd.DataFrame(df)
+    st.dataframe(df_hospital[["Unnamed: 0", "요양기관명_x", "주소", "병원홈페이지", "전화번호"]], use_container_width=True)
     
 ###### 음악 창
 if selected_menu == '음악': 
