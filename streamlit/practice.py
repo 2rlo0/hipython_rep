@@ -4,6 +4,10 @@ import pandas as pd
 from PIL import Image
 import folium
 from streamlit_folium import st_folium
+from geopy.geocoders import Nominatim
+from geopy.distance import geodesic
+
+st.set_page_config(page_title="츄러스미", layout="wide") # 페이지 와이드 모드
 
 st.title("츄러스미🍧")
 img = Image.open('./streamlit/image/profile.png')
@@ -29,7 +33,7 @@ with tab_settings:
             st.success("설정이 저장되었습니다.")
 
 
-# 대시보드 창
+##### 대시보드 창
 if selected_menu == '대시보드':
     col1, col2 = st.columns(2)
     with col1:
@@ -39,7 +43,8 @@ if selected_menu == '대시보드':
         fig2.update_traces(line=dict(color="green"))
         fig2.update_layout(
             xaxis_title="요일",
-            yaxis_title="사용량"
+            yaxis_title="사용량",
+            height=400
         )
         st.plotly_chart(fig2)
     
@@ -61,7 +66,7 @@ if selected_menu == '대시보드':
                 icon=folium.Icon(color="blue", icon="info-sign")
             ).add_to(m)
 
-        st_data = st_folium(m, width=700, height=500)
+        st_data = st_folium(m, width=400, height=300)
 
     col3, col4 = st.columns(2)
     with col3:
@@ -79,18 +84,18 @@ if selected_menu == '대시보드':
         fig.update_traces(fill='toself')  # 안쪽 색 채우기
         fig.update_layout(
             polar=dict(radialaxis=dict(visible=True, range=[0,1])),
-            showlegend=False
+            showlegend=False,
+            height=400
         )
         st.plotly_chart(fig)
         
-    
     with col4:
         st.subheader("🎵 음악 추천")
         img = Image.open('./streamlit/image/music.png')
-        st.image(img, use_container_width=True, width=500)
+        st.image(img, width=400)
         st.markdown("<h5 style='text-align: center;'>가수 - 노래제목</h5>", unsafe_allow_html=True)
 
-# 채팅 창
+###### 채팅 창
 if selected_menu == '채팅':
     st.header("💬 심리 상담")
 
@@ -116,7 +121,7 @@ if selected_menu == '채팅':
             st.markdown(f"**상담사**<br>{response}", unsafe_allow_html=True)
 
         
-        
+ ###### 병원 창       
 if selected_menu == '병원':        
     st.subheader("🗺️ 병원 위치")
     m = folium.Map(location=[37.5667, 127.0012], zoom_start=12)
@@ -136,7 +141,10 @@ if selected_menu == '병원':
         ).add_to(m)
     
     st_data = st_folium(m, width=700, height=500)
-
+    csv_path = "./streamlit/hospital_location.csv"
+    df = pd.read_csv(csv_path)
+    
+###### 음악 창
 if selected_menu == '음악': 
     st.subheader("🎵 음악 추천")
 
