@@ -15,7 +15,7 @@ def make_anal_tab():
     # 3번째 설정 탭: 체크박스(활성화여부), 슬라이더(업데이트 주기sec)
     from datetime import time
     with tab3:
-        st.subheader('데이터 탭')
+        st.subheader('설정 탭')
         st.checkbox('자동업데이트 활성화 여부')
         st.slider('업데이트 주기 (sec)', 0, 60, 30)
 
