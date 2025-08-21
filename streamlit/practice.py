@@ -139,7 +139,7 @@ if selected_menu == '병원':
             icon=folium.Icon(color="blue", icon="info-sign")
         ).add_to(m)
     
-    st_data = st_folium(m, width=1000, height=800)
+    st_data = st_folium(m, width=700, height=500)
     
     st.markdown("### 🏥 병원 정보 리스트")
     df = pd.read_csv('./streamlit/hospital_location.csv')
