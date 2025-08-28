@@ -8,7 +8,7 @@ from streamlit_folium import st_folium
 # st.set_page_config(page_title="츄러스미", layout="wide") # 페이지 와이드 모드
 
 st.title("츄러스미🍧")
-img = Image.open('./streamlit/image/profile.png')
+img = Image.open('./image/profile.png')
 
 tab_menu, tab_settings = st.sidebar.tabs(["메뉴", "⚙️ 설정"])
 
@@ -90,7 +90,7 @@ if selected_menu == '메인':
         
     with col4:
         st.subheader("🎵 음악 추천")
-        img = Image.open('./streamlit/image/music.png')
+        img = Image.open('./image/music.png')
         st.image(img, width=300)
         st.markdown("<h5 style='text-align: center;'>가수 - 노래제목</h5>", unsafe_allow_html=True)
 
@@ -142,7 +142,7 @@ if selected_menu == '병원':
     st_data = st_folium(m, width=700, height=500)
     
     st.markdown("### 🏥 병원 정보 리스트")
-    df = pd.read_csv('./streamlit/hospital_location.csv')
+    df = pd.read_csv('./hospital_location.csv')
     df_hospital = pd.DataFrame(df)
     st.dataframe(df_hospital[["Unnamed: 0", "요양기관명_x", "주소", "병원홈페이지", "전화번호"]], use_container_width=True)
     
@@ -152,9 +152,9 @@ if selected_menu == '음악':
 
     # 추천 음악 목록 (이미지 경로 + 제목)
     music_list = [
-        {"img": "./streamlit/image/babyshark.png", "title": "상어 - 아기상어"},
-        {"img": "./streamlit/image/music.png", "title": "노래2 - 제목2"},
-        {"img": "./streamlit/image/profile.png", "title": "노래3 - 제목3"},
+        {"img": "./image/babyshark.png", "title": "상어 - 아기상어"},
+        {"img": "./image/music.png", "title": "노래2 - 제목2"},
+        {"img": "./image/profile.png", "title": "노래3 - 제목3"},
     ]
 
     # 여러 곡 출력
